@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Document</title>
+</head>
+<body>
+<h1>My Favorite Albums Conceptual Overview</h1>
+
+<h2>Users</h2>
+<i>My Favorite Albums</i> is a web application that allows users to explore and
+analyze one person's album listening history through interactive data visualizations.
+<br><br>
+In this conceptual overview, you will learn how to use each of the data <strong>aggregation</strong> tools within
+<i>My Favorite Albums</i>. Below are the tabs in the <i>My Favorite Albums</i> website for you to jump to.
+<br><br>
+<strong>Prerequisites</strong>: familiarity with interacting with user interface components
+<br><br>
+<p class="note">Note: any words that are bolded have definitions in the appendix at the bottom of the User section.</p>
+
+<h3>Number One Albums</h3>
+<p>This section uses a <strong>range slider</strong> component to <strong>aggregate</strong> data to show the owner's favorite album for each year of the year range selected. Furthermore, at the bottom of the page there is a data table that displays the owner's favorite album by year. The fields on the table are: Year, Album, and Artist.</p>
+
+<h3>Top Albums by Year</h3>
+<p>This section uses a <strong>drop-down menu</strong> that allows you to select one specific year, defaulting to 1993. When you choose a year, it displays a data table of the owner's favorite albums for that year and where each album ranks. The fields on the table are: Ranking, Album, and Artist.</p>
+
+<h3>Artist's Albums</h3>
+<p>This section uses a <strong>drop-down menu</strong> that allows you to select a specific artist and see what albums the owner has listened to, the year they released, and the rating the owner gives that album. This data is displayed in a data table with the following fields: Album, Year, and Rating. At the bottom of the data table, you will see the number of albums ranked for the selected artist and the average rating.</p>
+
+<h3>Favorite Artists</h3>
+<p>This section utilizes a <strong>drop-down menu</strong> that creates a data table with at most 15 artists. The table is organized by Artist, Rating, and the number of albums they have. You interact with the data table by selecting the minimum number of albums in the drop-down menu, and you can choose to include EPs and live albums. The data table is organized by the average rating of the albums, hence why you get to choose the minimum number of albums included.</p>
+
+<h3>Artist Comparison</h3>
+<p>This section creates a comparison between two artists that you select. It generates a <strong>comparative line chart</strong> that displays each artist's average rating of the albums that were released in a given year. These lines are distinguished by color: the first artist you select is red and the second artist you select is blue.</p>
+
+<h3>Vinyl</h3>
+<p>This section utilizes a <strong>drop-down menu</strong> where you can select the minimum rating of an album that the owner does not own on vinyl. It displays a data table with the fields Album, Artist, and Rating. The table is sorted by rating in descending order first, then alphabetically by album name.</p>
+
+<h3>Appendix: Terminology</h3>
+<ul>
+<li><strong>Range Slider</strong>: A user interface component that allows you to select a range of values from a set of numbers.</li>
+<li><strong>Handle</strong>: The draggable element on a range slider that users interact with to select a value or range of values. It moves along the slider's track and visually indicates the current selected value(s). In a dual-range slider, there are typically two handles—one for the minimum value and one for the maximum value—allowing users to define a specific range.</li>
+<li><strong>Drop-Down Menu</strong>: A graphical user interface element that allows users to choose from a list of options that appears when they click on or hover over a button or other control.</li>
+<li><strong>Comparative Line Chart</strong>: A visual representation of data used to compare and contrast two or more data sets.</li>
+<li><strong>Aggregate</strong>: To filter and combine data based on criteria you select.</li>
+</ul>
+
+<br>
+
+<h2>Programmers</h2>
+In this conceptual overview, you will learn how each file works to create each section of the website.
+<br><br>
+<strong>Prerequisites</strong>
+<ul>
+<li>You are familiar with R.</li>
+<li>You are familiar with the ggplot2, shiny, and dplyr R packages.</li>
+<li>You are familiar with CSV files.</li>
+</ul>
+<p class="note">Note: all files except app.R, app_server.R, and app_ui.R operate on the album_data dataset, which is loaded from Data/album-ranking.csv and contains the following fields:</p>
+<table>
+  <tr>
+    <th>Year</th>
+    <th>Ranking</th>
+    <th>Album</th>
+    <th>Artist</th>
+    <th>Rating</th>
+    <th>Vinyl</th>
+    <th>EP</th>
+    <th>Live</th>
+  </tr>
+  <tr>
+    <td>...</td>
+    <td>...</td>
+    <td>...</td>
+    <td>...</td>
+    <td>...</td>
+    <td>...</td>
+    <td>...</td>
+    <td>...</td>
+  </tr>
+</table>
+<p class="note">In case you need to redownload R and RStudio, this link will take you to the <a href="https://posit.co/download/rstudio-desktop/">Official Website</a>.</p>
+
+<h3>albums_by_band.R</h3>
+<p>This file handles displaying a selected artist's albums along with their average rating and total album count. All three functions use the same filtering pattern using dplyr's <code>filter()</code> and <code>select()</code> functions.</p>
+<h4>all_bands</h4>
+<p>This variable extracts and alphabetically sorts every unique artist to populate the drop-down menu.</p>
+<h4>albums_by_bands()</h4>
+<p>This function filters the dataset to the selected artist's albums and returns a table with the Album, Year, and Rating fields sorted by year.</p>
+<h4>band_mean_rating()</h4>
+<p>This helper function calculates the average rating for the selected artist, which is displayed below the data table.</p>
+<h4>band_album_count()</h4>
+<p>This helper function calculates the total number of ranked albums for the selected artist, which is displayed below the data table.</p>
+
+<h3>albums_by_year.R</h3>
+<p>This file handles displaying the ranked albums for a specific year selected by the user.</p>
+<h4>all_years</h4>
+<p>This variable extracts and sorts every unique year to populate the drop-down menu.</p>
+<h4>year_albums()</h4>
+<p>This function filters the dataset to the selected year's albums and returns a table with the Ranking, Album, and Artist fields sorted by ranking order.</p>
+<p class="note">Note: the <code>year_albums(2024)</code> call is there for testing.</p>
+
+<h3>app.R</h3>
+<p>This is the main entry point of the app that ties everything together. It loads the required libraries, sources all the individual files, and launches the app by connecting the UI and server together.</p>
+
+<h3>app_server.R</h3>
+<p>This file defines the server function that connects user input to the data functions. Each tab follows the same pattern of taking the user selection from the UI and passing it to the corresponding data function, which then renders the result. Below is a list of which data functions each tab calls:</p>
+<ul>
+<li>Home: <code>total_album_count()</code>, <code>total_band_count()</code>, <code>most_pop_artist()</code></li>
+<li>Number One Albums: <code>number_one_album()</code></li>
+<li>Top Albums by Year: <code>year_albums()</code></li>
+<li>Artist's Albums: <code>albums_by_bands()</code>, <code>band_album_count()</code>, <code>band_mean_rating()</code></li>
+<li>Favorite Artists: <code>favorite_bands()</code></li>
+<li>Artist Comparison: <code>band_album_comparison_chart()</code></li>
+<li>Vinyl: <code>missing_vinyl()</code></li>
+</ul>
+
+<h3>app_ui.R</h3>
+<p>This file defines the layout and structure of the application. It loads the album data from a CSV file and uses it to populate the data aggregation UI. The UI is built using Shiny's <code>fluidPage</code> layout with a tab-based navigation system containing seven tabs. Each tab defines the input controls and an output area that are connected to the server logic in app_server.R.</p>
+
+<h3>compare_bands.R</h3>
+<p>This file generates a visual comparison between two artists using the ggplot2 library to create a comparative line chart.</p>
+<h4>band_album_comparison_chart()</h4>
+<p>This function filters each selected artist by year and their mean rating for that given year. The first artist selected is displayed in red and the second is displayed in blue.</p>
+
+<h3>fav_bands.R</h3>
+<p>This file ranks the top artists based on their average album rating, with user-configurable filters for minimum album count and album type.</p>
+<h4>favorite_bands()</h4>
+<p>This function takes in two parameters based on user input: the minimum number of albums from the band or artist and whether to include EP and live albums. It filters on this data and shows the top 15 bands (sorted by average score in descending order) with at least the specified number of ranked albums.</p>
+
+<h3>home.R</h3>
+<p>This file provides the summary statistics displayed on the home page, giving users a quick overview of the database.</p>
+<h4>total_album_count()</h4>
+<p>This function finds the total number of albums in the dataset.</p>
+<h4>total_band_count()</h4>
+<p>This function finds the total number of unique artists in the database.</p>
+<h4>most_pop_artist()</h4>
+<p>This function finds the artist with the most albums in the database.</p>
+
+<h3>number_one_albums.R</h3>
+<p>This file retrieves the owner's top-ranked album for each year within a user-selected range.</p>
+<h4>number_one_album()</h4>
+<p>This function takes in the user-defined start and end year selected from the range slider. It then gets the owner's top album for each year in that range and returns them sorted by year in ascending order.</p>
+
+<h3>vinyl.R</h3>
+<p>This file identifies highly rated albums that the owner does not yet own on vinyl.</p>
+<h4>missing_vinyl()</h4>
+<p>This function creates a data table of top-ranked albums that the owner does not own on vinyl. It takes a user-defined minimum rating and sorts the data first by rating in descending order, then alphabetically by album name in ascending order.</p>
+
+<h3>Data/album-ranking.csv</h3>
+<p>This is the CSV file that all the data aggregation functions operate on.</p>
+</body>
+</html>
