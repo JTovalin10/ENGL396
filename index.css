@@ -4,90 +4,122 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 1.8;
-  color: #2d2d2d;
-  background-color: #fafafa;
-  max-width: 780px;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  line-height: 1.75;
+  color: #1a1a1a;
+  background-color: #f0f2f6;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 2.5rem 1.5rem;
-  font-size: 1.05rem;
+  padding: 2.5rem 2rem 5rem;
+  font-size: 1rem;
 }
 
 h1 {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
+  font-size: 1.85rem;
+  font-weight: 700;
   color: #111;
+  letter-spacing: -0.3px;
+  margin-bottom: 0;
 }
 
 h2 {
-  font-size: 1.5rem;
-  margin-top: 2.5rem;
-  margin-bottom: 1rem;
-  padding-bottom: 0.4rem;
-  border-bottom: 2px solid #ccc;
-  color: #222;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #111;
+  margin: 1.75rem 0 0.75rem;
 }
 
 h3 {
-  font-size: 1.2rem;
-  margin-top: 2rem;
-  margin-bottom: 0.5rem;
-  color: #333;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #1565c0;
+  margin: 2.25rem 0 0.5rem;
+  padding-left: 0.75rem;
+  border-left: 3px solid #1565c0;
 }
 
 h4 {
-  font-size: 1.05rem;
-  margin-top: 1.25rem;
-  margin-bottom: 0.35rem;
-  color: #444;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin: 1.1rem 0 0.3rem;
 }
 
-p, li {
-  font-size: 1.05rem;
-  margin-bottom: 0.6rem;
+p {
+  margin-bottom: 0.7rem;
+}
+
+li {
+  margin-bottom: 0.4rem;
 }
 
 ul, ol {
-  margin: 0.75rem 0;
-  padding-left: 1.75rem;
-}
-
-ul li, ol li {
-  margin-bottom: 0.5rem;
+  margin: 0.5rem 0 0.75rem 1.5rem;
 }
 
 .note {
-  border: 2px solid #2e7d32;
-  border-radius: 6px;
-  background-color: #e8f5e9;
-  padding: 0.75rem 1rem;
+  border-left: 4px solid #2e7d32;
+  border-radius: 0 6px 6px 0;
+  background-color: #f1f8f1;
+  padding: 0.6rem 1rem;
   margin: 1rem 0;
+  font-size: 0.95rem;
+  color: #1b3a1d;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  margin: 1.25rem 0;
+  margin: 1rem 0;
+  font-size: 0.95rem;
 }
 
 th, td {
-  border: 1px solid #ccc;
-  padding: 0.6rem 0.85rem;
+  border: 1px solid #dde3ef;
+  padding: 0.55rem 0.85rem;
   text-align: left;
 }
 
 th {
-  background-color: #f0f0f0;
+  background-color: #eef2fa;
   font-weight: 600;
 }
 
+tr:nth-child(even) td {
+  background-color: #f8f9fc;
+}
+
 code {
-  background-color: #eee;
+  background-color: #e8edf5;
+  color: #1a3a6a;
   padding: 0.15rem 0.4rem;
   border-radius: 3px;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+  font-family: "Consolas", "Courier New", monospace;
+}
+
+pre {
+  background-color: #1e2433;
+  color: #cdd8f0;
+  padding: 1rem 1.25rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 0.75rem 0 1rem;
+  font-size: 0.9rem;
+  font-family: "Consolas", "Courier New", monospace;
+  line-height: 1.6;
+}
+
+pre code {
+  background-color: transparent;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
 }
 
 strong {
@@ -105,4 +137,86 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+/* Tab bar */
+.tab-bar {
+  display: flex;
+  gap: 0.35rem;
+  margin: 1.5rem 0 0;
+  border-bottom: 2px solid #d0d8ea;
+}
+
+.tab-btn {
+  padding: 0.5rem 1.6rem;
+  border: 2px solid transparent;
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  background: none;
+  cursor: pointer;
+  font-size: 0.975rem;
+  font-family: inherit;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: -2px;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.tab-btn.active {
+  color: #1565c0;
+  background-color: #fff;
+  border-color: #d0d8ea;
+  border-bottom-color: #fff;
+  font-weight: 700;
+}
+
+.tab-btn:hover:not(.active) {
+  color: #333;
+  background-color: #e4e9f4;
+}
+
+/* Content panel */
+.content-section {
+  background-color: #fff;
+  border: 2px solid #d0d8ea;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  padding: 2rem 2.25rem 2.5rem;
+}
+
+/* Jump-to nav */
+.section-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.6rem 0.9rem;
+  background-color: #f0f4fa;
+  border: 1px solid #ccd6ea;
+  border-radius: 6px;
+  margin-bottom: 1.75rem;
+}
+
+.nav-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-right: 0.2rem;
+}
+
+.section-nav a {
+  font-size: 0.85rem;
+  color: #1565c0;
+  text-decoration: none;
+  padding: 0.18rem 0.55rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  transition: background-color 0.1s;
+}
+
+.section-nav a:hover {
+  background-color: #d8e6f8;
+  text-decoration: none;
 }

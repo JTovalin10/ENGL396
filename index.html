@@ -4,152 +4,282 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
-    <title>Document</title>
+    <title>My Favorite Albums Task Documentation</title>
 </head>
 <body>
-<h1>My Favorite Albums Conceptual Overview</h1>
+<h1>My Favorite Albums Task Documentation</h1>
 
-<h2>Users</h2>
-<i>My Favorite Albums</i> is a web application that allows users to explore and
-analyze one person's album listening history through interactive data visualizations.
-<br><br>
-In this conceptual overview, you will learn how to use each of the data <strong>aggregation</strong> tools within
-<i>My Favorite Albums</i>. Below are the tabs in the <i>My Favorite Albums</i> website for you to jump to.
-<br><br>
-<strong>Prerequisites</strong>: familiarity with interacting with user interface components
-<br><br>
-<p class="note">Note: any words that are bolded have definitions in the appendix at the bottom of the User section.</p>
+<div class="tab-bar">
+  <button class="tab-btn active" data-tab="users">Users</button>
+  <button class="tab-btn" data-tab="programmers">Programmers</button>
+</div>
 
-<h3>Number One Albums</h3>
-<p>This section uses a <strong>range slider</strong> component to <strong>aggregate</strong> data to show the owner's favorite album for each year of the year range selected. Furthermore, at the bottom of the page there is a data table that displays the owner's favorite album by year. The fields on the table are: Year, Album, and Artist.</p>
+<!-- ===== USERS ===== -->
+<div id="users-section" class="content-section active">
 
-<h3>Top Albums by Year</h3>
-<p>This section uses a <strong>drop-down menu</strong> that allows you to select one specific year, defaulting to 1993. When you choose a year, it displays a data table of the owner's favorite albums for that year and where each album ranks. The fields on the table are: Ranking, Album, and Artist.</p>
+  <nav class="section-nav">
+    <span class="nav-label">Jump to:</span>
+    <a href="#number-one-albums">Number One Albums</a>
+    <a href="#top-albums-by-year">Top Albums by Year</a>
+    <a href="#artists-albums">Artist's Albums</a>
+    <a href="#favorite-artists">Favorite Artists</a>
+    <a href="#artist-comparison">Artist Comparison</a>
+    <a href="#vinyl">Vinyl</a>
+    <a href="#appendix">Appendix</a>
+  </nav>
 
-<h3>Artist's Albums</h3>
-<p>This section uses a <strong>drop-down menu</strong> that allows you to select a specific artist and see what albums the owner has listened to, the year they released, and the rating the owner gives that album. This data is displayed in a data table with the following fields: Album, Year, and Rating. At the bottom of the data table, you will see the number of albums ranked for the selected artist and the average rating.</p>
+  <h2>Users</h2>
+  <i>My Favorite Albums</i> is a web application that allows users to explore and
+  analyze one person's album listening history through interactive data visualizations.
+  <br><br>
+  In this conceptual overview, you will learn how to use each of the data <strong>aggregation</strong> tools within
+  <i>My Favorite Albums</i>. Below are the tabs in the <i>My Favorite Albums</i> website for you to jump to.
+  <br><br>
+  <strong>Prerequisites</strong>: familiarity with interacting with user interface components
+  <br><br>
+  <p class="note">Note: any words that are bolded have definitions in the appendix at the bottom of the User section.</p>
 
-<h3>Favorite Artists</h3>
-<p>This section utilizes a <strong>drop-down menu</strong> that creates a data table with at most 15 artists. The table is organized by Artist, Rating, and the number of albums they have. You interact with the data table by selecting the minimum number of albums in the drop-down menu, and you can choose to include EPs and live albums. The data table is organized by the average rating of the albums, hence why you get to choose the minimum number of albums included.</p>
+  <h3 id="number-one-albums">Number One Albums</h3>
+  <p>Use this tab to see the owner's single favorite album for each year within a range you choose.</p>
+  <ol>
+    <li>Click the <strong>Number One Albums</strong> tab.</li>
+    <li>Drag the left <strong>handle</strong> of the <strong>range slider</strong> to set your start year, and drag the right handle to set your end year.</li>
+    <li>A data table appears showing the owner's top-ranked album for each year in the selected range. The table contains the fields Year, Album, and Artist, sorted by year in ascending order.</li>
+  </ol>
 
-<h3>Artist Comparison</h3>
-<p>This section creates a comparison between two artists that you select. It generates a <strong>comparative line chart</strong> that displays each artist's average rating of the albums that were released in a given year. These lines are distinguished by color: the first artist you select is red and the second artist you select is blue.</p>
+  <h3 id="top-albums-by-year">Top Albums by Year</h3>
+  <p>Use this tab to see all of the owner's ranked albums for a single year, ordered by rank.</p>
+  <ol>
+    <li>Click the <strong>Top Albums by Year</strong> tab.</li>
+    <li>Click the <strong>Choose a year</strong> <strong>drop-down menu</strong> and select the year you want to explore.</li>
+    <li>Click <strong>Submit</strong>. A data table appears showing the owner's ranked albums for that year. The table contains the fields Ranking, Album, and Artist.</li>
+  </ol>
 
-<h3>Vinyl</h3>
-<p>This section utilizes a <strong>drop-down menu</strong> where you can select the minimum rating of an album that the owner does not own on vinyl. It displays a data table with the fields Album, Artist, and Rating. The table is sorted by rating in descending order first, then alphabetically by album name.</p>
+  <h3 id="artists-albums">Artist's Albums</h3>
+  <p>Use this tab to see every album the owner has ranked for a specific artist, along with their total album count and average rating.</p>
+  <ol>
+    <li>Click the <strong>Artist's Albums</strong> tab.</li>
+    <li>Click the <strong>Choose a band or artist</strong> <strong>drop-down menu</strong> and select an artist. Artists are listed in alphabetical order.</li>
+    <li>Click <strong>Submit</strong>. A data table appears showing that artist's ranked albums with the fields Album, Year, and Rating. Below the table, the total number of ranked albums and the artist's average rating are displayed.</li>
+  </ol>
+  <p class="note">Note: if the table does not appear after clicking Submit, re-select the artist from the drop-down menu and click Submit again.</p>
 
-<h3>Appendix: Terminology</h3>
-<ul>
-<li><strong>Range Slider</strong>: A user interface component that allows you to select a range of values from a set of numbers.</li>
-<li><strong>Handle</strong>: The draggable element on a range slider that users interact with to select a value or range of values. It moves along the slider's track and visually indicates the current selected value(s). In a dual-range slider, there are typically two handles—one for the minimum value and one for the maximum value—allowing users to define a specific range.</li>
-<li><strong>Drop-Down Menu</strong>: A graphical user interface element that allows users to choose from a list of options that appears when they click on or hover over a button or other control.</li>
-<li><strong>Comparative Line Chart</strong>: A visual representation of data used to compare and contrast two or more data sets.</li>
-<li><strong>Aggregate</strong>: To filter and combine data based on criteria you select.</li>
-</ul>
+  <h3 id="favorite-artists">Favorite Artists</h3>
+  <p>Use this tab to see the owner's top-rated artists filtered by how many albums they have ranked.</p>
+  <ol>
+    <li>Click the <strong>Favorite Artists</strong> tab.</li>
+    <li>Click the <strong>Minimum number of albums</strong> <strong>drop-down menu</strong> and select the minimum number of albums an artist must have to appear in the results.</li>
+    <li>Check or uncheck the <strong>Exclude EPs and Live Albums</strong> checkbox depending on whether you want those release types included in the count.</li>
+    <li>Click <strong>Submit</strong>. A data table appears showing up to 15 artists with the fields Artist, Rating, and number of albums, sorted by average rating in descending order.</li>
+  </ol>
 
-<br>
+  <h3 id="artist-comparison">Artist Comparison</h3>
+  <p>Use this tab to generate a <strong>comparative line chart</strong> that plots two artists' average album ratings side by side by year.</p>
+  <ol>
+    <li>Click the <strong>Artist Comparison</strong> tab.</li>
+    <li>Click the <strong>First band or artist</strong> <strong>drop-down menu</strong> and select your first artist.</li>
+    <li>Click the <strong>Second band or artist</strong> <strong>drop-down menu</strong> and select your second artist. The chart generates automatically — no Submit button is needed.</li>
+    <li>Read the chart: the horizontal axis shows the year, the vertical axis shows average rating, the first artist's line is red, and the second artist's line is blue. Each point represents that artist's average rating across all albums the owner ranked in that year.</li>
+  </ol>
+  <p class="note">Note: an artist will only appear on the chart for years in which the owner has at least one ranked album.</p>
 
-<h2>Programmers</h2>
-In this conceptual overview, you will learn how each file works to create each section of the website.
-<br><br>
-<strong>Prerequisites</strong>
-<ul>
-<li>You are familiar with R.</li>
-<li>You are familiar with the ggplot2, shiny, and dplyr R packages.</li>
-<li>You are familiar with CSV files.</li>
-</ul>
-<p class="note">Note: all files except app.R, app_server.R, and app_ui.R operate on the album_data dataset, which is loaded from Data/album-ranking.csv and contains the following fields:</p>
-<table>
-  <tr>
-    <th>Year</th>
-    <th>Ranking</th>
-    <th>Album</th>
-    <th>Artist</th>
-    <th>Rating</th>
-    <th>Vinyl</th>
-    <th>EP</th>
-    <th>Live</th>
-  </tr>
-  <tr>
-    <td>...</td>
-    <td>...</td>
-    <td>...</td>
-    <td>...</td>
-    <td>...</td>
-    <td>...</td>
-    <td>...</td>
-    <td>...</td>
-  </tr>
-</table>
-<p class="note">In case you need to redownload R and RStudio, this link will take you to the <a href="https://posit.co/download/rstudio-desktop/">Official Website</a>.</p>
+  <h3 id="vinyl">Vinyl</h3>
+  <p>Use this tab to browse highly rated albums that the owner does not yet own on vinyl.</p>
+  <ol>
+    <li>Click the <strong>Vinyl</strong> tab.</li>
+    <li>Click the <strong>Select which albums to display</strong> <strong>drop-down menu</strong> and select a minimum rating threshold.</li>
+    <li>Click <strong>Submit</strong>. A data table appears listing all qualifying albums with the fields Album, Artist, and Rating, sorted by rating in descending order and then alphabetically by album name.</li>
+  </ol>
 
-<h3>albums_by_band.R</h3>
-<p>This file handles displaying a selected artist's albums along with their average rating and total album count. All three functions use the same filtering pattern using dplyr's <code>filter()</code> and <code>select()</code> functions.</p>
-<h4>all_bands</h4>
-<p>This variable extracts and alphabetically sorts every unique artist to populate the drop-down menu.</p>
-<h4>albums_by_bands()</h4>
-<p>This function filters the dataset to the selected artist's albums and returns a table with the Album, Year, and Rating fields sorted by year.</p>
-<h4>band_mean_rating()</h4>
-<p>This helper function calculates the average rating for the selected artist, which is displayed below the data table.</p>
-<h4>band_album_count()</h4>
-<p>This helper function calculates the total number of ranked albums for the selected artist, which is displayed below the data table.</p>
+  <h3 id="appendix">Appendix: Terminology</h3>
+  <ul>
+    <li><strong>Range Slider</strong>: A user interface component that allows you to select a range of values from a set of numbers.</li>
+    <li><strong>Handle</strong>: The draggable element on a range slider that users interact with to select a value or range of values. It moves along the slider's track and visually indicates the current selected value(s). In a dual-range slider, there are typically two handles—one for the minimum value and one for the maximum value—allowing users to define a specific range.</li>
+    <li><strong>Drop-Down Menu</strong>: A graphical user interface element that allows users to choose from a list of options that appears when they click on or hover over a button or other control.</li>
+    <li><strong>Comparative Line Chart</strong>: A visual representation of data used to compare and contrast two or more data sets.</li>
+    <li><strong>Aggregate</strong>: To filter and combine data based on criteria you select.</li>
+  </ul>
 
-<h3>albums_by_year.R</h3>
-<p>This file handles displaying the ranked albums for a specific year selected by the user.</p>
-<h4>all_years</h4>
-<p>This variable extracts and sorts every unique year to populate the drop-down menu.</p>
-<h4>year_albums()</h4>
-<p>This function filters the dataset to the selected year's albums and returns a table with the Ranking, Album, and Artist fields sorted by ranking order.</p>
-<p class="note">Note: the <code>year_albums(2024)</code> call is there for testing.</p>
+</div>
 
-<h3>app.R</h3>
-<p>This is the main entry point of the app that ties everything together. It loads the required libraries, sources all the individual files, and launches the app by connecting the UI and server together.</p>
+<!-- ===== PROGRAMMERS ===== -->
+<div id="programmers-section" class="content-section" hidden>
 
-<h3>app_server.R</h3>
-<p>This file defines the server function that connects user input to the data functions. Each tab follows the same pattern of taking the user selection from the UI and passing it to the corresponding data function, which then renders the result. Below is a list of which data functions each tab calls:</p>
-<ul>
-<li>Home: <code>total_album_count()</code>, <code>total_band_count()</code>, <code>most_pop_artist()</code></li>
-<li>Number One Albums: <code>number_one_album()</code></li>
-<li>Top Albums by Year: <code>year_albums()</code></li>
-<li>Artist's Albums: <code>albums_by_bands()</code>, <code>band_album_count()</code>, <code>band_mean_rating()</code></li>
-<li>Favorite Artists: <code>favorite_bands()</code></li>
-<li>Artist Comparison: <code>band_album_comparison_chart()</code></li>
-<li>Vinyl: <code>missing_vinyl()</code></li>
-</ul>
+  <nav class="section-nav">
+    <span class="nav-label">Jump to:</span>
+    <a href="#albums-by-band-r">albums_by_band.R</a>
+    <a href="#albums-by-year-r">albums_by_year.R</a>
+    <a href="#app-r">app.R</a>
+    <a href="#app-server-r">app_server.R</a>
+    <a href="#app-ui-r">app_ui.R</a>
+    <a href="#compare-bands-r">compare_bands.R</a>
+    <a href="#fav-bands-r">fav_bands.R</a>
+    <a href="#home-r">home.R</a>
+    <a href="#number-one-albums-r">number_one_albums.R</a>
+    <a href="#vinyl-r">vinyl.R</a>
+    <a href="#data-csv">album-ranking.csv</a>
+    <a href="#using-the-functions">Using the Functions</a>
+  </nav>
 
-<h3>app_ui.R</h3>
-<p>This file defines the layout and structure of the application. It loads the album data from a CSV file and uses it to populate the data aggregation UI. The UI is built using Shiny's <code>fluidPage</code> layout with a tab-based navigation system containing seven tabs. Each tab defines the input controls and an output area that are connected to the server logic in app_server.R.</p>
+  <h2>Programmers</h2>
+  In this conceptual overview, you will learn how each file works to create each section of the website.
+  <br><br>
+  <strong>Prerequisites</strong>
+  <ul>
+    <li>You are familiar with R.</li>
+    <li>You are familiar with the <a href="https://ggplot2.tidyverse.org/reference/index.html"><code>ggplot2</code></a>, <a href="https://shiny.posit.co/r/reference/shiny/latest/"><code>shiny</code></a>, and <a href="https://dplyr.tidyverse.org/reference/index.html"><code>dplyr</code></a> R packages.</li>
+    <li>You are familiar with CSV files.</li>
+  </ul>
+  <p class="note">Note: all files except app.R, app_server.R, and app_ui.R operate on the album_data dataset, which is loaded from Data/album-ranking.csv and contains the following fields:</p>
+  <table>
+    <tr>
+      <th>Year</th>
+      <th>Ranking</th>
+      <th>Album</th>
+      <th>Artist</th>
+      <th>Rating</th>
+      <th>Vinyl</th>
+      <th>EP</th>
+      <th>Live</th>
+    </tr>
+    <tr>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+  </table>
+  <p class="note">In case you need to redownload R and RStudio, this link will take you to the <a href="https://posit.co/download/rstudio-desktop/">Official Website</a>.</p>
 
-<h3>compare_bands.R</h3>
-<p>This file generates a visual comparison between two artists using the ggplot2 library to create a comparative line chart.</p>
-<h4>band_album_comparison_chart()</h4>
-<p>This function filters each selected artist by year and their mean rating for that given year. The first artist selected is displayed in red and the second is displayed in blue.</p>
+  <h3 id="albums-by-band-r">albums_by_band.R</h3>
+  <p>This file handles displaying a selected artist's albums along with their average rating and total album count. All three functions use the same filtering pattern using dplyr's <code>filter()</code> and <code>select()</code> functions.</p>
+  <h4>all_bands</h4>
+  <p>This variable extracts and alphabetically sorts every unique artist to populate the drop-down menu.</p>
+  <h4>albums_by_bands()</h4>
+  <p>This function filters the dataset to the selected artist's albums and returns a table with the Album, Year, and Rating fields sorted by year.</p>
+  <h4>band_mean_rating()</h4>
+  <p>This helper function calculates the average rating for the selected artist, which is displayed below the data table.</p>
+  <h4>band_album_count()</h4>
+  <p>This helper function calculates the total number of ranked albums for the selected artist, which is displayed below the data table.</p>
 
-<h3>fav_bands.R</h3>
-<p>This file ranks the top artists based on their average album rating, with user-configurable filters for minimum album count and album type.</p>
-<h4>favorite_bands()</h4>
-<p>This function takes in two parameters based on user input: the minimum number of albums from the band or artist and whether to include EP and live albums. It filters on this data and shows the top 15 bands (sorted by average score in descending order) with at least the specified number of ranked albums.</p>
+  <h3 id="albums-by-year-r">albums_by_year.R</h3>
+  <p>This file handles displaying the ranked albums for a specific year selected by the user.</p>
+  <h4>all_years</h4>
+  <p>This variable extracts and sorts every unique year to populate the drop-down menu.</p>
+  <h4>year_albums()</h4>
+  <p>This function filters the dataset to the selected year's albums and returns a table with the Ranking, Album, and Artist fields sorted by ranking order.</p>
+  <p class="note">Note: the <code>year_albums(2024)</code> call is there for testing.</p>
 
-<h3>home.R</h3>
-<p>This file provides the summary statistics displayed on the home page, giving users a quick overview of the database.</p>
-<h4>total_album_count()</h4>
-<p>This function finds the total number of albums in the dataset.</p>
-<h4>total_band_count()</h4>
-<p>This function finds the total number of unique artists in the database.</p>
-<h4>most_pop_artist()</h4>
-<p>This function finds the artist with the most albums in the database.</p>
+  <h3 id="app-r">app.R</h3>
+  <p><strong>Prerequisites</strong>: <a href="https://shiny.posit.co/r/reference/shiny/latest/"><code>shiny</code></a>, <a href="https://dplyr.tidyverse.org/reference/index.html"><code>dplyr</code></a></p>
+  <p>This is the main entry point of the app that ties everything together. It loads the required libraries, sources all the individual files, and launches the app by connecting the UI and server together.</p>
 
-<h3>number_one_albums.R</h3>
-<p>This file retrieves the owner's top-ranked album for each year within a user-selected range.</p>
-<h4>number_one_album()</h4>
-<p>This function takes in the user-defined start and end year selected from the range slider. It then gets the owner's top album for each year in that range and returns them sorted by year in ascending order.</p>
+  <h3 id="app-server-r">app_server.R</h3>
+  <p>This file defines the server function that connects user input to the data functions. Each tab follows the same pattern of taking the user selection from the UI and passing it to the corresponding data function, which then renders the result. Below is a list of which data functions each tab calls:</p>
+  <ul>
+    <li>Home: <code>total_album_count()</code>, <code>total_band_count()</code>, <code>most_pop_artist()</code></li>
+    <li>Number One Albums: <code>number_one_album()</code></li>
+    <li>Top Albums by Year: <code>year_albums()</code></li>
+    <li>Artist's Albums: <code>albums_by_bands()</code>, <code>band_album_count()</code>, <code>band_mean_rating()</code></li>
+    <li>Favorite Artists: <code>favorite_bands()</code></li>
+    <li>Artist Comparison: <code>band_album_comparison_chart()</code></li>
+    <li>Vinyl: <code>missing_vinyl()</code></li>
+  </ul>
 
-<h3>vinyl.R</h3>
-<p>This file identifies highly rated albums that the owner does not yet own on vinyl.</p>
-<h4>missing_vinyl()</h4>
-<p>This function creates a data table of top-ranked albums that the owner does not own on vinyl. It takes a user-defined minimum rating and sorts the data first by rating in descending order, then alphabetically by album name in ascending order.</p>
+  <h3 id="app-ui-r">app_ui.R</h3>
+  <p><strong>Prerequisites</strong>: <a href="https://shiny.posit.co/r/reference/shiny/latest/"><code>shiny</code></a></p>
+  <p>This file defines the layout and structure of the application. It loads the album data from a CSV file and uses it to populate the data aggregation UI. The UI is built using Shiny's <code>fluidPage</code> layout with a tab-based navigation system containing seven tabs. Each tab defines the input controls and an output area that are connected to the server logic in app_server.R.</p>
 
-<h3>Data/album-ranking.csv</h3>
-<p>This is the CSV file that all the data aggregation functions operate on.</p>
+  <h3 id="compare-bands-r">compare_bands.R</h3>
+  <p><strong>Prerequisites</strong>: <a href="https://ggplot2.tidyverse.org/reference/index.html"><code>ggplot2</code></a></p>
+  <p>This file generates a visual comparison between two artists using the ggplot2 library to create a comparative line chart.</p>
+  <h4>band_album_comparison_chart()</h4>
+  <p>This function filters each selected artist by year and their mean rating for that given year. The first artist selected is displayed in red and the second is displayed in blue.</p>
+
+  <h3 id="fav-bands-r">fav_bands.R</h3>
+  <p>This file ranks the top artists based on their average album rating, with user-configurable filters for minimum album count and album type.</p>
+  <h4>favorite_bands()</h4>
+  <p>This function takes in two parameters based on user input: the minimum number of albums from the band or artist and whether to include EP and live albums. It filters on this data and shows the top 15 bands (sorted by average score in descending order) with at least the specified number of ranked albums.</p>
+
+  <h3 id="home-r">home.R</h3>
+  <p>This file provides the summary statistics displayed on the home page, giving users a quick overview of the database.</p>
+  <h4>total_album_count()</h4>
+  <p>This function finds the total number of albums in the dataset.</p>
+  <h4>total_band_count()</h4>
+  <p>This function finds the total number of unique artists in the database.</p>
+  <h4>most_pop_artist()</h4>
+  <p>This function finds the artist with the most albums in the database.</p>
+
+  <h3 id="number-one-albums-r">number_one_albums.R</h3>
+  <p>This file retrieves the owner's top-ranked album for each year within a user-selected range.</p>
+  <h4>number_one_album()</h4>
+  <p>This function takes in the user-defined start and end year selected from the range slider. It then gets the owner's top album for each year in that range and returns them sorted by year in ascending order.</p>
+
+  <h3 id="vinyl-r">vinyl.R</h3>
+  <p>This file identifies highly rated albums that the owner does not yet own on vinyl.</p>
+  <h4>missing_vinyl()</h4>
+  <p>This function creates a data table of top-ranked albums that the owner does not own on vinyl. It takes a user-defined minimum rating and sorts the data first by rating in descending order, then alphabetically by album name in ascending order.</p>
+
+  <h3 id="data-csv">Data/album-ranking.csv</h3>
+  <p>This is the CSV file that all the data aggregation functions operate on. Follow these steps to create or update it.</p>
+  <ol>
+    <li>Open a spreadsheet application such as Excel or Google Sheets and create a new blank file.</li>
+    <li>In the first row, enter the following column headers in this exact order:
+      <pre><code>Year, Ranking, Album, Artist, Rating, Vinyl, EP, Live</code></pre>
+    </li>
+    <li>Enter each album as its own row beneath the headers. For the Vinyl, EP, and Live columns, enter <code>TRUE</code> or <code>FALSE</code> in all caps — R reads these as logical values, and lowercase entries will cause filtering errors.</li>
+    <li>Save the file as a CSV. In Excel, choose <strong>File &gt; Save As</strong> and select <strong>CSV (Comma delimited)</strong>. In Google Sheets, choose <strong>File &gt; Download &gt; Comma-separated values (.csv)</strong>.</li>
+    <li>Name the file <code>album-rankings.csv</code> and place it in the <code>data/</code> folder inside the project directory.</li>
+    <li>Open RStudio, set your working directory to the project folder via <strong>Session &gt; Set Working Directory &gt; Choose Directory</strong>, and run the app with <code>shiny::runApp()</code>. If the Home tab displays a total album count and artist count, the file loaded correctly.</li>
+  </ol>
+  <p class="note">Note: the Artist field must be spelled consistently across all rows. Inconsistent capitalization (e.g., "Radiohead" vs. "radiohead") will cause that artist to appear as multiple separate entries throughout the app.</p>
+
+  <h3 id="using-the-functions">Using the Functions</h3>
+  <p>All data functions can be called directly in the RStudio console without running the full Shiny app, which is useful for testing or exploring the data.</p>
+  <ol>
+    <li>In the RStudio console, load <code>dplyr</code> and read the dataset:
+      <pre><code>library(dplyr)
+album_data &lt;- read.csv("data/album-rankings.csv")</code></pre>
+    </li>
+    <li>Source the file containing the function you want to call:
+      <pre><code>source("albums_by_band.R")</code></pre>
+    </li>
+    <li>Call the function, passing <code>album_data</code> as the first argument. For example:
+      <pre><code>albums_by_bands(album_data, "Radiohead")</code></pre>
+      A data frame appears in the console with the columns Album, Year, and Rating.
+    </li>
+    <li>For <code>band_album_comparison_chart()</code>, also load <code>ggplot2</code> before calling:
+      <pre><code>library(ggplot2)
+source("compare_bands.R")
+band_album_comparison_chart(album_data, "Radiohead", "Arcade Fire")</code></pre>
+      The chart renders in the RStudio Plots pane.
+    </li>
+  </ol>
+  <p class="note">Note: artist name arguments are case-sensitive and must match the dataset exactly. Run <code>unique(album_data$Artist)</code> to see all valid artist names.</p>
+
+</div>
+
+<script>
+  document.querySelectorAll('.tab-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var tab = this.getAttribute('data-tab');
+
+      document.querySelectorAll('.tab-btn').forEach(function(b) {
+        b.classList.remove('active');
+      });
+      document.querySelectorAll('.content-section').forEach(function(s) {
+        s.hidden = true;
+      });
+
+      this.classList.add('active');
+      document.getElementById(tab + '-section').hidden = false;
+      window.scrollTo(0, 0);
+    });
+  });
+</script>
 </body>
 </html>
