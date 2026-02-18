@@ -255,3 +255,11 @@ a:hover {
   border-left: 1px solid #d0d8ea;
   margin-left: 3px;
 }
+
+.step-img {
+  display: block;
+  max-width: 100%;
+  margin: 0.5rem 0 0.75rem 0;
+  border: 1px solid #d0d8ea;
+  border-radius: 4px;
+}
