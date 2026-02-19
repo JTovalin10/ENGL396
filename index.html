@@ -181,24 +181,18 @@
 
   <nav class="section-nav">
     <span class="nav-label">Jump to:</span>
-    <a href="#albums-by-band-r">albums_by_band.R</a>
-    <a href="#albums-by-year-r">albums_by_year.R</a>
+    <a href="#setup">Setting Up R and RStudio</a>
+    <a href="#data-csv">album-ranking.csv</a>
     <a href="#app-r">app.R</a>
     <a href="#app-server-r">app_server.R</a>
     <a href="#app-ui-r">app_ui.R</a>
-    <a href="#compare-bands-r">compare_bands.R</a>
-    <a href="#fav-bands-r">fav_bands.R</a>
-    <a href="#home-r">home.R</a>
-    <a href="#number-one-albums-r">number_one_albums.R</a>
-    <a href="#vinyl-r">vinyl.R</a>
-    <a href="#data-csv">album-ranking.csv</a>
-    <a href="#using-the-functions">Using the Functions</a>
+    <a href="#adding-new-functions">Adding New Functions</a>
   </nav>
 
   <h2>Programmers</h2>
-  In this reference guide, you will learn how each file in the <i>My Favorite Albums</i> project works, what functions it contains, and when to modify it.
+  By the end of this guide, you will be able to call <i>My Favorite Albums</i> data functions directly in RStudio to query your album dataset and generate visualizations, and run and modify the Shiny web application.
   <br><br>
-  <strong>Audience</strong>: Experienced R programmers familiar with Shiny, dplyr, and ggplot2 who want to understand, modify, or extend the <i>My Favorite Albums</i> application.
+  <strong>Audience</strong>: Experienced R programmers who want to work with <i>My Favorite Albums</i> functions to analyze data and generate web pages.
   <br><br>
   <strong>Prerequisites</strong>
   <ul>
@@ -206,7 +200,8 @@
     <li>You are familiar with the <a href="https://ggplot2.tidyverse.org/reference/index.html"><code>ggplot2</code></a>, <a href="https://shiny.posit.co/r/reference/shiny/latest/"><code>shiny</code></a>, and <a href="https://dplyr.tidyverse.org/reference/index.html"><code>dplyr</code></a> R packages.</li>
     <li>You are familiar with CSV files.</li>
   </ul>
-  <p class="note">Note: all files except app.R, app_server.R, and app_ui.R operate on the album_data dataset, which is loaded from Data/album-ranking.csv and contains the following fields:</p>
+  <strong>Starting point</strong>: RStudio is open with the <i>My Favorite Albums</i> project directory set as your working directory and <code>album-ranking.csv</code> is in the <code>data/</code> folder.
+  <p class="note">Note: all data functions operate on the album_data dataset loaded from data/album-ranking.csv, which contains the following fields:</p>
   <table>
     <tr>
       <th>Year</th>
@@ -229,159 +224,202 @@
       <td>...</td>
     </tr>
   </table>
-  <p class="note">In case you need to redownload R and RStudio, this link will take you to the <a href="https://posit.co/download/rstudio-desktop/">Official Website</a>.</p>
 
-  <div class="collapsible" id="albums-by-band-r">
-    <button class="collapsible-btn">albums_by_band.R — Filtering Albums by Artist <span class="arrow">▸</span></button>
+  <div class="collapsible" id="setup">
+    <button class="collapsible-btn">Setting Up R, RStudio, and Required Packages <span class="arrow">▸</span></button>
     <div class="collapsible-body" hidden>
-      <p>This file powers the Artist's Albums tab by filtering the dataset to a selected artist and returning their ranked albums along with summary statistics. All three functions use the same filtering pattern with dplyr's <code>filter()</code> and <code>select()</code> functions. Reference this file when you want to understand how artist-based filtering works or modify what data is returned for a given artist.</p>
-      <h4>all_bands</h4>
-      <p>This variable extracts and alphabetically sorts every unique artist to populate the drop-down menu.</p>
-      <h4>albums_by_bands()</h4>
-      <p>This function filters the dataset to the selected artist's albums and returns a table with the Album, Year, and Rating fields sorted by year.</p>
-      <h4>band_mean_rating()</h4>
-      <p>This helper function calculates the average rating for the selected artist, which is displayed below the data table.</p>
-      <h4>band_album_count()</h4>
-      <p>This helper function calculates the total number of ranked albums for the selected artist, which is displayed below the data table.</p>
-    </div>
-  </div>
-
-  <div class="collapsible" id="albums-by-year-r">
-    <button class="collapsible-btn">albums_by_year.R — Filtering Albums by Year <span class="arrow">▸</span></button>
-    <div class="collapsible-body" hidden>
-      <p>This file powers the Top Albums by Year tab by filtering the dataset to a selected year and returning all ranked albums in that year ordered by rank. Reference this file when you want to understand how year-based filtering works or modify what fields are returned for a given year.</p>
-      <h4>all_years</h4>
-      <p>This variable extracts and sorts every unique year to populate the drop-down menu.</p>
-      <h4>year_albums()</h4>
-      <p>This function filters the dataset to the selected year's albums and returns a table with the Ranking, Album, and Artist fields sorted by ranking order.</p>
-      <p class="note">Note: the <code>year_albums(2024)</code> call is there for testing.</p>
-    </div>
-  </div>
-
-  <div class="collapsible" id="app-r">
-    <button class="collapsible-btn">app.R — Application Entry Point <span class="arrow">▸</span></button>
-    <div class="collapsible-body" hidden>
-      <p><strong>Prerequisites</strong>: <a href="https://shiny.posit.co/r/reference/shiny/latest/"><code>shiny</code></a>, <a href="https://dplyr.tidyverse.org/reference/index.html"><code>dplyr</code></a></p>
-      <p>This is the main entry point that ties the entire application together. It loads the required libraries, sources all individual R files, and launches the Shiny app by connecting the UI defined in <code>app_ui.R</code> to the server logic defined in <code>app_server.R</code>. Run this file to start the application. Modify this file when you need to add new library dependencies or source additional R files.</p>
-    </div>
-  </div>
-
-  <div class="collapsible" id="app-server-r">
-    <button class="collapsible-btn">app_server.R — Connecting Input to Data Functions <span class="arrow">▸</span></button>
-    <div class="collapsible-body" hidden>
-      <p>This file defines the server function that connects user input from the UI to the data functions. Each tab follows the same pattern: it takes the user's selection, passes it to the corresponding data function, and renders the result. Modify this file when you want to change how user input is handled or add server logic for a new tab. Below is a list of which data functions each tab calls:</p>
-      <ul>
-        <li>Home: <code>total_album_count()</code>, <code>total_band_count()</code>, <code>most_pop_artist()</code></li>
-        <li>Number One Albums: <code>number_one_album()</code></li>
-        <li>Top Albums by Year: <code>year_albums()</code></li>
-        <li>Artist's Albums: <code>albums_by_bands()</code>, <code>band_album_count()</code>, <code>band_mean_rating()</code></li>
-        <li>Favorite Artists: <code>favorite_bands()</code></li>
-        <li>Artist Comparison: <code>band_album_comparison_chart()</code></li>
-        <li>Vinyl: <code>missing_vinyl()</code></li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="collapsible" id="app-ui-r">
-    <button class="collapsible-btn">app_ui.R — Defining the Application Layout <span class="arrow">▸</span></button>
-    <div class="collapsible-body" hidden>
-      <p><strong>Prerequisites</strong>: <a href="https://shiny.posit.co/r/reference/shiny/latest/"><code>shiny</code></a></p>
-      <p>This file defines the visual layout and structure of the application using Shiny's <code>fluidPage</code> layout with a tab-based navigation system containing seven tabs. Each tab defines the input controls and output area that connect to the server logic in <code>app_server.R</code>. Modify this file when you want to change the layout, add new input controls, or restructure the tab navigation.</p>
-    </div>
-  </div>
-
-  <div class="collapsible" id="compare-bands-r">
-    <button class="collapsible-btn">compare_bands.R — Generating the Artist Comparison Chart <span class="arrow">▸</span></button>
-    <div class="collapsible-body" hidden>
-      <p><strong>Prerequisites</strong>: <a href="https://ggplot2.tidyverse.org/reference/index.html"><code>ggplot2</code></a></p>
-      <p>This file powers the Artist Comparison tab by generating a line chart that plots two artists' average album ratings side by side across different years using the ggplot2 library. Reference this file when you want to understand how the chart is built or modify its appearance, colors, or axes.</p>
-      <h4>band_album_comparison_chart()</h4>
-      <p>This function filters each selected artist by year and their mean rating for that given year. The first artist selected is displayed in red and the second is displayed in blue.</p>
-    </div>
-  </div>
-
-  <div class="collapsible" id="fav-bands-r">
-    <button class="collapsible-btn">fav_bands.R — Ranking Artists by Average Rating <span class="arrow">▸</span></button>
-    <div class="collapsible-body" hidden>
-      <p>This file powers the Favorite Artists tab by ranking the owner's top artists based on average album rating, with configurable filters for minimum album count and album type. Reference this file when you want to understand how artists are ranked or modify the filtering and sorting logic.</p>
-      <h4>favorite_bands()</h4>
-      <p>This function takes in two parameters based on user input: the minimum number of albums from the band or artist and whether to include EP and live albums. It filters on this data and shows the top 15 bands (sorted by average score in descending order) with at least the specified number of ranked albums.</p>
-    </div>
-  </div>
-
-  <div class="collapsible" id="home-r">
-    <button class="collapsible-btn">home.R — Calculating Home Page Statistics <span class="arrow">▸</span></button>
-    <div class="collapsible-body" hidden>
-      <p>This file calculates the three summary statistics displayed on the home page — total album count, total artist count, and the most represented artist — giving visitors a quick overview of the dataset. Reference this file when you want to understand how the home page statistics are computed or add new summary values to the home page.</p>
-      <h4>total_album_count()</h4>
-      <p>This function finds the total number of albums in the dataset.</p>
-      <h4>total_band_count()</h4>
-      <p>This function finds the total number of unique artists in the database.</p>
-      <h4>most_pop_artist()</h4>
-      <p>This function finds the artist with the most albums in the database.</p>
-    </div>
-  </div>
-
-  <div class="collapsible" id="number-one-albums-r">
-    <button class="collapsible-btn">number_one_albums.R — Retrieving Top Albums by Year Range <span class="arrow">▸</span></button>
-    <div class="collapsible-body" hidden>
-      <p>This file powers the Number One Albums tab by retrieving the owner's top-ranked album for each year within a user-selected range. Reference this file when you want to understand how the range-based filtering works or modify what data is returned for each year in the range.</p>
-      <h4>number_one_album()</h4>
-      <p>This function takes in the user-defined start and end year selected from the range slider. It then gets the owner's top album for each year in that range and returns them sorted by year in ascending order.</p>
-    </div>
-  </div>
-
-  <div class="collapsible" id="vinyl-r">
-    <button class="collapsible-btn">vinyl.R — Identifying Missing Vinyl Albums <span class="arrow">▸</span></button>
-    <div class="collapsible-body" hidden>
-      <p>This file powers the Vinyl tab by identifying highly rated albums that the owner does not yet own on vinyl. Reference this file when you want to understand how the rating threshold filter works or modify how the results are sorted and returned.</p>
-      <h4>missing_vinyl()</h4>
-      <p>This function creates a data table of top-ranked albums that the owner does not own on vinyl. It takes a user-defined minimum rating and sorts the data first by rating in descending order, then alphabetically by album name in ascending order.</p>
+      <p>Use these steps to install R, RStudio, and the packages required to run <i>My Favorite Albums</i>. The app relies on three packages: <code>shiny</code> to build the web interface, <code>dplyr</code> to filter and aggregate album data, and <code>ggplot2</code> to generate the artist comparison chart. All three must be installed before the app will run.</p>
+      <ol>
+        <li>Download and install RStudio from the <a href="https://posit.co/download/rstudio-desktop/">Posit website</a>. Select the free RStudio Desktop version and follow the installer prompts.
+        </li>
+        <li>Install the required packages:
+          <ol class="sub-steps">
+            <li>Open RStudio.</li>
+            <li>In the console, install the required packages by running:
+              <pre><code>install.packages(c("shiny", "dplyr", "ggplot2"))</code></pre>
+            </li>
+            <li>Wait for the console prompt (<code>&gt;</code>) to reappear — this indicates installation is complete.</li>
+          </ol>
+        </li>
+        <li>Set your working directory to the project folder via <strong>Session &gt; Set Working Directory &gt; Choose Directory</strong> and select the <i>My Favorite Albums</i> project folder.</li>
+      </ol>
     </div>
   </div>
 
   <div class="collapsible" id="data-csv">
     <button class="collapsible-btn">Setting Up album-ranking.csv <span class="arrow">▸</span></button>
     <div class="collapsible-body" hidden>
-      <p>This is the CSV file that all data aggregation functions operate on. Follow these steps to create or update it with your own album data. Getting this file structured correctly is required before the app will load and display any data.</p>
+      <p>This is the CSV file that all data aggregation functions operate on. Follow these steps to create or update it with your own album data. Getting this file structured correctly is required before the app will load and display any data. This guide assumes you are comfortable working in Excel or Google Sheets.</p>
       <ol>
-        <li>Open a spreadsheet application such as Excel or Google Sheets and create a new blank file.</li>
-        <li>In the first row, enter the following column headers in this exact order:
-          <pre><code>Year, Ranking, Album, Artist, Rating, Vinyl, EP, Live</code></pre>
+        <li>In Excel or Google Sheets, create a new blank file and enter the following column headers in the first row in this exact order:
+          <pre><code>Year,Ranking,Album,Artist,Rating,Vinyl,EP,Live</code></pre>
         </li>
-        <li>Enter each album as its own row beneath the headers. For the Vinyl, EP, and Live columns, enter <code>TRUE</code> or <code>FALSE</code> in all caps — R reads these as logical values, and lowercase entries will cause filtering errors.</li>
-        <li>Save the file as a CSV. In Excel, choose <strong>File &gt; Save As</strong> and select <strong>CSV (Comma delimited)</strong>. In Google Sheets, choose <strong>File &gt; Download &gt; Comma-separated values (.csv)</strong>.</li>
-        <li>Name the file <code>album-rankings.csv</code> and place it in the <code>data/</code> folder inside the project directory.</li>
-        <li>Open RStudio, set your working directory to the project folder via <strong>Session &gt; Set Working Directory &gt; Choose Directory</strong>, and run the app with <code>shiny::runApp()</code>. If the Home tab displays a total album count and artist count, the file loaded correctly.</li>
+        <li>Add each album as its own row beneath the headers. For the last three columns, use the following values:
+          <ul>
+            <li><strong>Vinyl</strong>: enter <code>v</code> if you own the album on vinyl, leave empty otherwise</li>
+            <li><strong>EP</strong>: enter <code>EP</code> if the release is an EP, leave empty otherwise</li>
+            <li><strong>Live</strong>: enter <code>Live</code> if the release is a live album, leave empty otherwise</li>
+          </ul>
+        </li>
+        <li>Save the file as a CSV:
+          <ol class="sub-steps">
+            <li>Name the file <code>album-rankings.csv</code>.</li>
+            <li>Place it in the <code>data/</code> folder inside the <i>My Favorite Albums</i> project folder — the same folder that contains <code>app.R</code> and the other R files.</li>
+          </ol>
+        </li>
+        <li>Open RStudio and set your working directory to the project folder via <strong>Session &gt; Set Working Directory &gt; Choose Directory</strong>.</li>
+        <li>Run the app with <code>shiny::runApp()</code>. If the Home tab displays a total album count and artist count, the file loaded correctly.</li>
       </ol>
       <p class="note">Note: the Artist field must be spelled consistently across all rows. Inconsistent capitalization (e.g., "Radiohead" vs. "radiohead") will cause that artist to appear as multiple separate entries throughout the app.</p>
+      <p class="note">Note: the year range slider is hardcoded to 1993–2024. If your data includes years outside that range, see the <a href="#app-ui-r">app_ui.R</a> section for instructions on updating it.</p>
     </div>
   </div>
 
-  <div class="collapsible" id="using-the-functions">
-    <button class="collapsible-btn">Calling Functions Directly in RStudio <span class="arrow">▸</span></button>
+  <div class="collapsible" id="app-r">
+    <button class="collapsible-btn">app.R — Running the Application <span class="arrow">▸</span></button>
     <div class="collapsible-body" hidden>
-      <p>All data functions can be called directly in the RStudio console without running the full Shiny app. This is useful for testing individual functions, debugging output, or exploring the data outside of the web interface. Follow these steps to source and call any function from the console.</p>
+      <p>Use these steps to launch the <i>My Favorite Albums</i> Shiny web application. <code>app.R</code> is the entry point that loads all libraries and sources every other R file in the project, so running it is all that is needed to start the full application.</p>
       <ol>
-        <li>In the RStudio console, load <code>dplyr</code> and read the dataset:
-          <pre><code>library(dplyr)
-album_data &lt;- read.csv("data/album-rankings.csv")</code></pre>
-        </li>
-        <li>Source the file containing the function you want to call:
-          <pre><code>source("albums_by_band.R")</code></pre>
-        </li>
-        <li>Call the function, passing <code>album_data</code> as the first argument. For example:
-          <pre><code>albums_by_bands(album_data, "Radiohead")</code></pre>
-          A data frame appears in the console with the columns Album, Year, and Rating.
-        </li>
-        <li>For <code>band_album_comparison_chart()</code>, also load <code>ggplot2</code> before calling:
-          <pre><code>library(ggplot2)
-source("compare_bands.R")
-band_album_comparison_chart(album_data, "Radiohead", "Arcade Fire")</code></pre>
-          The chart renders in the RStudio Plots pane.
+        <li>Open <code>app.R</code> in RStudio.</li>
+        <li>Set your working directory to the project folder via <strong>Session &gt; Set Working Directory &gt; Choose Directory</strong>.</li>
+        <li>Click the <strong>Run App</strong> button in the top-right corner of the editor pane, or run the following in the console:
+          <pre><code>shiny::runApp()</code></pre>
+          The application opens in your browser with all seven tabs available.
         </li>
       </ol>
-      <p class="note">Note: artist name arguments are case-sensitive and must match the dataset exactly. Run <code>unique(album_data$Artist)</code> to see all valid artist names.</p>
+      <p class="note">Note: add new <code>library()</code> and <code>source()</code> calls to this file when extending the app with additional dependencies or R files.</p>
+    </div>
+  </div>
+
+  <div class="collapsible" id="app-server-r">
+    <button class="collapsible-btn">app_server.R — Connecting Input to Data Functions <span class="arrow">▸</span></button>
+    <div class="collapsible-body" hidden>
+      <p>Use these steps to trace or update how a tab's user input connects to a data function. Shiny separates UI and server logic into different files — <code>app_server.R</code> handles all reactivity, meaning it listens for user input and decides what to compute and display in response. Editing this file is how you change what happens when a user interacts with a tab.</p>
+      <ol>
+        <li>Open <code>app_server.R</code> in RStudio.</li>
+        <li>Locate the tab you want to modify. Each tab follows the same pattern: it reads user input, passes it to a data function, and renders the result. The list below shows which function each tab calls:
+          <ul>
+            <li>Home: <code>total_album_count()</code>, <code>total_band_count()</code>, <code>most_pop_artist()</code></li>
+            <li>Number One Albums: <code>number_one_album()</code></li>
+            <li>Top Albums by Year: <code>year_albums()</code></li>
+            <li>Artist's Albums: <code>albums_by_bands()</code>, <code>band_album_count()</code>, <code>band_mean_rating()</code></li>
+            <li>Favorite Artists: <code>favorite_bands()</code></li>
+            <li>Artist Comparison: <code>band_album_comparison_chart()</code></li>
+            <li>Vinyl: <code>missing_vinyl()</code></li>
+          </ul>
+        </li>
+        <li>Each tab's server logic follows the same pattern — an <code>observeEvent()</code> block that reads user input, calls a function, and renders the result:
+          <pre><code>observeEvent(input$submit_id, {
+  output$output_id &lt;- renderTable({
+    function_name(input$input_id)
+  })
+})</code></pre>
+          <ol class="sub-steps">
+            <li>To <strong>add</strong> a new block:
+              <ul>
+                <li>Find the last <code>observeEvent()</code> in the file.</li>
+                <li>Add a new block directly after it, inside the <code>server &lt;- function(input, output)</code> body.</li>
+                <li>Set <code>submit_id</code> and <code>output_id</code> to match the IDs you defined in <code>app_ui.R</code>.</li>
+                <li>Replace <code>function_name</code> with the function you want to call.</li>
+              </ul>
+            </li>
+            <li>To <strong>modify</strong> an existing block:
+              <ul>
+                <li>Find the block by searching for the tab's submit ID (e.g., <code>input$submit_vinyl</code>).</li>
+                <li>Replace <code>function_name</code> with your new function.</li>
+                <li>Update the argument to match the relevant input control.</li>
+                <li>If your function returns a chart, use <code>renderPlot()</code> instead of <code>renderTable()</code>.</li>
+              </ul>
+            </li>
+          </ol>
+        </li>
+        <li>Save the file and run the app in the console:
+          <pre><code>shiny::runApp()</code></pre>
+          Interact with the tab you modified and confirm it returns the expected output.
+        </li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="collapsible" id="app-ui-r">
+    <button class="collapsible-btn">app_ui.R — Defining the Application Layout <span class="arrow">▸</span></button>
+    <div class="collapsible-body" hidden>
+      <p>Use these steps to modify the layout or add a new tab to the application. <code>app_ui.R</code> controls everything the user sees — keeping it separate from the server logic makes both files easier to maintain and update independently.</p>
+      <ol>
+        <li>Open <code>app_ui.R</code> in RStudio.</li>
+        <li>Each tab is defined as a <code>tabPanel()</code> inside <code>tabsetPanel()</code>, containing input controls and an output placeholder:
+          <pre><code>tabPanel("Tab Name",
+  selectInput("your_input", "Label", choices = c(...)),
+  actionButton("your_submit", "Submit"),
+  tableOutput("your_output")
+)</code></pre>
+          <ol class="sub-steps">
+            <li>To <strong>add</strong> a new tab:
+              <ul>
+                <li>Find the last <code>tabPanel()</code> inside <code>tabsetPanel()</code>.</li>
+                <li>Add your new <code>tabPanel()</code> directly after it, before the closing <code>)</code> of <code>tabsetPanel()</code>.</li>
+                <li>Set the input ID (e.g., <code>"your_input"</code>) and submit ID (e.g., <code>"your_submit"</code>) — these must match what you use in <code>app_server.R</code>.</li>
+                <li>Set the output ID (e.g., <code>"your_output"</code>) — this must match the ID used in <code>renderTable()</code> or <code>renderPlot()</code> in <code>app_server.R</code>.</li>
+                <li>Use <code>plotOutput()</code> instead of <code>tableOutput()</code> if your function returns a chart.</li>
+              </ul>
+            </li>
+            <li>To <strong>modify</strong> an existing tab:
+              <ul>
+                <li>Find the <code>tabPanel()</code> by its name (e.g., <code>tabPanel("Vinyl", ...)</code>).</li>
+                <li>Update the input control choices, labels, or IDs as needed.</li>
+                <li>If you change an input or output ID, update the matching ID in <code>app_server.R</code> to keep them in sync.</li>
+              </ul>
+            </li>
+          </ol>
+        </li>
+        <li>Save the file and re-run the app with <code>shiny::runApp()</code> to see your changes in the browser.</li>
+      </ol>
+      <p class="note">Note: the Number One Albums tab uses a range slider with hardcoded bounds (<code>min = 1993, max = 2024</code>). If your album data includes years outside this range, update those values in the <code>sliderInput()</code> call inside the <code>tabPanel("Number One Albums", ...)</code> block in <code>app_ui.R</code>:
+        <pre><code>sliderInput("year_range", "Select Year Range",
+            min = 1990, max = 2030,
+            value = c(1993, 2024))</code></pre>
+        Replace <code>min</code> and <code>max</code> with the earliest and latest years in your dataset. The <code>value</code> field sets the default handle positions when the app loads.
+      </p>
+    </div>
+  </div>
+
+  <div class="collapsible" id="adding-new-functions">
+    <button class="collapsible-btn">Adding New Functions to the App <span class="arrow">▸</span></button>
+    <div class="collapsible-body" hidden>
+      <p>Use these steps to add a custom R file with its own aggregation function into the <i>My Favorite Albums</i> app and expose it as a new tab in the web interface.</p>
+      <ol>
+        <li>Write your function in a new R file in the project directory. Your function can reference <code>album_data</code> directly — it is a global variable loaded automatically when the app starts, so you do not need to pass it as an argument:
+          <pre><code>your_function &lt;- function(your_input) {
+  album_data %&gt;%
+    filter(Column == your_input) %&gt;%
+    select(Album, Artist, Rating) %&gt;%
+    arrange(desc(Rating))
+}</code></pre>
+          Replace <code>Column</code> with the field you want to filter on (e.g., <code>Artist</code>, <code>Year</code>) and update <code>select()</code> to include whichever columns you want returned.
+        </li>
+        <li>Open <code>app.R</code> in RStudio. Find the block of existing <code>source()</code> calls near the top of the file. Add a new line at the end of that block with your file's name:
+          <pre><code>source("your_file.R")</code></pre>
+        </li>
+        <li>Open <code>app_ui.R</code> in RStudio. Find the <code>tabsetPanel()</code> call — this is where all tabs are defined. Add a new <code>tabPanel()</code> after the last existing <code>tabPanel()</code>, just before the closing <code>)</code> of <code>tabsetPanel()</code>:
+          <pre><code>tabPanel("Your Tab Name",
+  selectInput("your_input", "Label", choices = c(...)),
+  actionButton("your_submit", "Submit"),
+  tableOutput("your_output")
+)</code></pre>
+        </li>
+        <li>Open <code>app_server.R</code> in RStudio. Find the last <code>observeEvent()</code> block in the file. Add your new <code>observeEvent()</code> block directly after it, still inside the <code>server &lt;- function(input, output)</code> body:
+          <pre><code>observeEvent(input$your_submit, {
+  output$your_output &lt;- renderTable({
+    your_function(input$your_input)
+  })
+})</code></pre>
+        </li>
+        <li>Save all three files — <code>app.R</code>, <code>app_ui.R</code>, and <code>app_server.R</code>. Run the app in the console:
+          <pre><code>shiny::runApp()</code></pre>
+          If done correctly, your new tab appears in the tab bar. Clicking it shows your input controls, and clicking Submit displays the result of your function.
+        </li>
+      </ol>
+      <p class="note">Note: the output ID used in <code>tableOutput()</code> must exactly match the ID used in <code>renderTable()</code> in the server file, and input IDs must match between <code>app_ui.R</code> and <code>app_server.R</code>.</p>
     </div>
   </div>
 

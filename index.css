@@ -256,6 +256,11 @@ a:hover {
   margin-left: 3px;
 }
 
+ol.sub-steps {
+  list-style-type: lower-alpha;
+  margin-top: 0.3rem;
+}
+
 .step-img {
   display: block;
   max-width: 100%;

@@ -55,6 +55,9 @@ class LiveReloadHandler(http.server.SimpleHTTPRequestHandler):
         if path.endswith('.html') and os.path.isfile(path):
             self._serve_html(path)
             return
+        if path.endswith('.css') and os.path.isfile(path):
+            self._serve_static(path, 'text/css; charset=utf-8')
+            return
         super().do_GET()
 
     def _serve_html(self, path):
@@ -63,6 +66,16 @@ class LiveReloadHandler(http.server.SimpleHTTPRequestHandler):
         content = content.replace(b'</body>', RELOAD_SCRIPT + b'</body>', 1)
         self.send_response(200)
         self.send_header('Content-Type', 'text/html; charset=utf-8')
+        self.send_header('Content-Length', len(content))
+        self.send_header('Cache-Control', 'no-cache')
+        self.end_headers()
+        self.wfile.write(content)
+
+    def _serve_static(self, path, content_type):
+        with open(path, 'rb') as f:
+            content = f.read()
+        self.send_response(200)
+        self.send_header('Content-Type', content_type)
         self.send_header('Content-Length', len(content))
         self.send_header('Cache-Control', 'no-cache')
         self.end_headers()
